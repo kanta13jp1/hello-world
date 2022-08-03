@@ -15,3 +15,96 @@ Python 製パッケージ Sphinx_ でビルドするための rst ファイル�
 ノート作業だけならば rst ファイルをテキストエディターで編集し続けていけばよい。
 これを HTML ファイル群に仕立てて上記 URL に配備するには、少々の手間を要する。
 以下、環境のセットアップ手順と、アップロードする手順の両方を説明する。
+
+セットアップ
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+次の三つに分けて説明する。
+
+#. ツール準備
+#. ローカルコピー作成
+#. 初回ビルド
+
+最初にツールを説明する。
+標準的な Windows 環境で必要なツール群をザッと挙げるとこういう感じだろうか。
+
+Linux や Cygwin_ あるいはそれ相当
+  とにかくコンソールだ。これらのツールを多用する。
+
+  * bash
+  * make
+
+Python_
+  最新バージョンで稼動するようにしている。もちろん 3.x を利用する。
+
+Sphinx_
+  Python が使えるようになったら ``pip install sphinx`` などで依存パッケージを込みで自動的にインストールできる。
+  現在利用中の Sphinx のバージョンは 3.2.1 だ。
+  これは ``sphinx-build --version`` で確認できる。
+
+IPython_
+  シンタックスハイライティングのためだけに必要。
+  ``pip install ipython`` などでインストールする。
+
+Git_
+  Cygwin 版でも Windows 版でも Linux 版でも構わない。
+
+次にローカルコピーの作成手順を説明する。
+一言で言えばコマンドラインから ``git`` を用いて GitHub のサーバーからファイルをダウンロードする。
+仮にゼロからビルド環境を構築するとなると、次のことをすれば最新の状態を再現できる。
+
+.. code:: console
+
+   bash$ cd $MY_DEV_DIR
+   bash$ git clone https://github.com/kanta13jp1/hello-world.git
+   bash$ cd hello-world
+   bash$ git checkout develop
+
+最後にビルド手順を説明する。
+ノートのビルドは ``notebook`` ディレクトリー直下で次のようにする。
+初回のみ ``git clone`` が必要であることに注意して欲しい。
+
+.. code:: console
+
+   bash$ git clone -b gh-pages --single-branch https://github.com/kanta13jp1/hello-world.git gh-pages
+   bash$ make gh-pages
+
+アップロード
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ビルドしたファイル群を GitHub のサーバーにアップロードする方法を記す。
+アップロードには次のふたつの目的がある。それぞれ手順が異なる。
+
+#. ノート本体のリポジトリーの更新
+#. ビルド成果物の更新
+
+前者は ``notebook`` ディレクトリー直下で、
+後者は ``gh-pages`` ディレクトリー直下でそれぞれ ``git push`` する。
+
+* HTML ファイル群の push は普通に行う。
+* 日常ルールではソースコードの push は ``develop`` ブランチのみに限定している。
+
+非読者（一般の皆さん）向け説明
+----------------------------------------------------------------------
+当リポジトリー内の全リソースは私個人が私個人のために記したものなので、
+誤字脱字、事実・真実に反する記述、等々の報告をいただけると私が個人的に助かる。
+しかしながら訂正作業のリクエストには応じられるとは限らないので、了承願いたい。
+申し訳ない。
+
+Licensing
+======================================================================
+同梱の ``LICENSE`` ファイルを参照して欲しい。
+
+開発陣
+======================================================================
+当リポジトリーの管理人とその連絡手段の一覧を以下に記す。
+
+`プレハブ小屋 <https://kanta13jp1.github.io/>`_: 当読者ノート主筆。
+
+  * Web site: https://github.com/kanta13jp1/hello-world
+  * E-mail: kanta13jp@gmail.com
+  * Twitter: `@kanta13jp1 <https://twitter.com/kanta13jp1>`_
+
+.. _Python: https://www.python.org/
+.. _Sphinx: https://sphinx-doc.org/
+.. _IPython: https://ipython.org/
+.. _Git: https://git-for-windows.github.io/
+.. _Cygwin: https://www.cygwin.com/
